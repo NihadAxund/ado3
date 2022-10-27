@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WindowsFormsApp2
 {
@@ -25,23 +28,44 @@ namespace WindowsFormsApp2
         }
         private bool ReadLine(string path,string paht2)
         {
-            string readText = File.ReadAllText(path);
-            if (readText.Length <= 0) return false;
-            FileStream fs = new FileStream(paht2,FileMode.OpenOrCreate,FileAccess.ReadWrite);
-            //StreamWriter file1 = new StreamWriter(fs);
-            var array = readText.ToCharArray();
-            fs.Write()
-         //   for (int i = 0; i < array.Length; i++)
-            //{
-                // MessageBox.Show(array[i].ToString());
-               // file1.WriteLine("a");
-                //file1.Write(array[i]);
-            //}
-            fs.Close();
-
+             var array = File.ReadAllText(path).ToCharArray();
+            // if (readText.Length <= 0) return false;
+            //  FileStream fs = new FileStream(paht2,FileMode.OpenOrCreate,FileAccess.Write);
+            //   FileStream f = new FileStream(paht2, FileMode.OpenOrCreate);
+            int num = array.Length / 100;
+            int num2 = num;
+            MessageBox.Show(num.ToString(), num2.ToString());
+            using (StreamWriter writer = new StreamWriter(path2, false))
+            {
+                for (int i = 0; i < array.Length; i++)
+                {
+                        writer.Write(array[i]);
+                    if (num2>=i)
+                    {
+                      num2 += num;
+                     //   progressBar1.Value++;
+                    }
+                   
+                }
+            }
+            Close();
             return true;
 
         }
+
+
+        //private void PrintButton_Click(object sender, EventArgs e)
+        //{
+        //    PrintDialog printDlg = new PrintDialog();
+        //    PrintDocument printDoc = new PrintDocument();
+        //    printDoc.DocumentName = "Print Document";
+        //    printDlg.Document = printDoc;
+        //    printDlg.AllowSelection = true;
+        //    printDlg.AllowSomePages = true;
+        //    //Call ShowDialog  
+        //    if (printDlg.ShowDialog() == DialogResult.OK) printDoc.Print();
+        //}
+
         public void Btn_Click(object sender, EventArgs e)
         {
             if (sender is Button btn)
@@ -70,13 +94,35 @@ namespace WindowsFormsApp2
                         {
                             path2 = theDialog2.FileName;
                             To_label.Text = theDialog2.FileName;
+
                         }
                         break;
                     case "3":
-                        if (Check()) {
-                           // MessageBox.Show("3");
-                            ReadLine(path1, path2);
-                        };
+                        //if (Check())
+                        //{
+                        //    // MessageBox.Show("3");
+                        //    ReadLine(path1, path2);
+                        //};
+                        ///
+                        ReadLine(path1, path2);
+                        //
+                        //PrintDialog pd = new PrintDialog();
+                        //pd.PrinterSettings = new PrinterSettings();
+                        //if (DialogResult.OK == pd.ShowDialog(this))
+                        //{
+                        //    // Print the file to the printer.
+                        //    // RawPrinterHelper.SendFileToPrinter(pd.PrinterSettings.PrinterName, ofd.FileName);
+                        //}
+                        //string path = "C:\\Users\\nihad\\OneDrive\\Masaüstü\\nihads.pdf";
+                        //PrintDialog printDlg = new PrintDialog();
+                        //PrintDocument printDoc = new PrintDocument();
+                        //printDoc.DocumentName = path;
+                        ////printDoc.DocumentName = "Print Document";
+                        //printDlg.Document = printDoc;
+                        //printDlg.AllowSelection = true;
+                        //printDlg.AllowSomePages = true;
+                        ////Call ShowDialog  
+                        //if (printDlg.ShowDialog() == DialogResult.OK) printDoc.Print();
                         break;
                     default:
                         break;
