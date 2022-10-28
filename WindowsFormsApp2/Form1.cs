@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
@@ -33,22 +34,24 @@ namespace WindowsFormsApp2
             //  FileStream fs = new FileStream(paht2,FileMode.OpenOrCreate,FileAccess.Write);
             //   FileStream f = new FileStream(paht2, FileMode.OpenOrCreate);
             int num = array.Length / 100;
-            int num2 = num;
-            MessageBox.Show(num.ToString(), num2.ToString());
-            using (StreamWriter writer = new StreamWriter(path2, false))
+        //    int num2 = array.Length;
+           // MessageBox.Show(num.ToString(), num2.ToString());
+            using (StreamWriter writer = new StreamWriter(path2,false))
             {
                 for (int i = 0; i < array.Length; i++)
                 {
-                        writer.Write(array[i]);
-                    if (num2>=i)
+                   writer.Write(array[i]);
+                    if (num>=i)
                     {
-                      num2 += num;
-                     //   progressBar1.Value++;
+                        num += num;
+                        progressBar1.Value++;
                     }
                    
                 }
+                progressBar1.Value = 100;
+
             }
-            Close();
+          
             return true;
 
         }
@@ -65,7 +68,14 @@ namespace WindowsFormsApp2
         //    //Call ShowDialog  
         //    if (printDlg.ShowDialog() == DialogResult.OK) printDoc.Print();
         //}
-
+        private void Starting()
+        {
+            if (ReadLine(path1, path2))
+            {
+                MessageBox.Show("close");
+                Close();
+            }
+        }
         public void Btn_Click(object sender, EventArgs e)
         {
             if (sender is Button btn)
@@ -98,13 +108,14 @@ namespace WindowsFormsApp2
                         }
                         break;
                     case "3":
-                        //if (Check())
-                        //{
-                        //    // MessageBox.Show("3");
-                        //    ReadLine(path1, path2);
-                        //};
+                        if (Check())
+                        {
+                            Thread thread = new Thread(Starting);
+                            thread.Start();
+                        };
                         ///
-                        ReadLine(path1, path2);
+
+               
                         //
                         //PrintDialog pd = new PrintDialog();
                         //pd.PrinterSettings = new PrinterSettings();
