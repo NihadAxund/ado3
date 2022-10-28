@@ -72,7 +72,7 @@ namespace WindowsFormsApp2
         {
             if (ReadLine(path1, path2))
             {
-                MessageBox.Show("close");
+                MessageBox.Show("Complate");
                 Close();
             }
         }
