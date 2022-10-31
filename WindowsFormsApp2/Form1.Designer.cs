@@ -36,6 +36,8 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.Open_btn1 = new System.Windows.Forms.Button();
             this.Open_btn2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // From_label
@@ -77,7 +79,7 @@
             // Conver_btn
             // 
             this.Conver_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Conver_btn.Location = new System.Drawing.Point(123, 125);
+            this.Conver_btn.Location = new System.Drawing.Point(135, 173);
             this.Conver_btn.Name = "Conver_btn";
             this.Conver_btn.Size = new System.Drawing.Size(175, 75);
             this.Conver_btn.TabIndex = 4;
@@ -88,7 +90,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 226);
+            this.progressBar1.Location = new System.Drawing.Point(26, 269);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(387, 38);
             this.progressBar1.TabIndex = 5;
@@ -117,11 +119,35 @@
             this.Open_btn2.UseVisualStyleBackColor = true;
             this.Open_btn2.Click += new System.EventHandler(this.Btn_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(71, 127);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 26);
+            this.button1.TabIndex = 8;
+            this.button1.Tag = "4";
+            this.button1.Text = "Stop";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Btn_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(303, 127);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 26);
+            this.button2.TabIndex = 9;
+            this.button2.Tag = "5";
+            this.button2.Text = "Start";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.Btn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(416, 291);
+            this.ClientSize = new System.Drawing.Size(445, 339);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.Open_btn2);
             this.Controls.Add(this.Open_btn1);
             this.Controls.Add(this.progressBar1);
@@ -147,6 +173,8 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Button Open_btn1;
         private System.Windows.Forms.Button Open_btn2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 

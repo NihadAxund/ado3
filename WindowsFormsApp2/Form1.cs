@@ -17,11 +17,14 @@ namespace WindowsFormsApp2
 {
     public partial class Form1 : Form
     {
+        private bool Isok { get; set; } = false;
+        private Thread thread { get; set; }
         string path1 { get; set; }
         string path2 { get; set; }
         public Form1()
         {
             InitializeComponent();
+
         }
         private bool Check()
         {
@@ -30,12 +33,8 @@ namespace WindowsFormsApp2
         private bool ReadLine(string path,string paht2)
         {
              var array = File.ReadAllText(path).ToCharArray();
-            // if (readText.Length <= 0) return false;
-            //  FileStream fs = new FileStream(paht2,FileMode.OpenOrCreate,FileAccess.Write);
-            //   FileStream f = new FileStream(paht2, FileMode.OpenOrCreate);
+
             int num = array.Length / 100;
-        //    int num2 = array.Length;
-           // MessageBox.Show(num.ToString(), num2.ToString());
             using (StreamWriter writer = new StreamWriter(path2,false))
             {
                 for (int i = 0; i < array.Length; i++)
@@ -70,12 +69,15 @@ namespace WindowsFormsApp2
         //}
         private void Starting()
         {
+            
             if (ReadLine(path1, path2))
             {
                 MessageBox.Show("Complate");
                 Close();
             }
         }
+
+        [Obsolete]
         public void Btn_Click(object sender, EventArgs e)
         {
             if (sender is Button btn)
@@ -110,31 +112,33 @@ namespace WindowsFormsApp2
                     case "3":
                         if (Check())
                         {
-                            Thread thread = new Thread(Starting);
+                            Isok = true;
+                            Open_btn1.Enabled = false;
+                            Open_btn2.Enabled = false;
+                            btn.Enabled = false;
+                            thread = new Thread(Starting);
+                            thread.IsBackground = true;
+                            thread.Priority = ThreadPriority.Lowest;
                             thread.Start();
                         };
-                        ///
-
-               
-                        //
-                        //PrintDialog pd = new PrintDialog();
-                        //pd.PrinterSettings = new PrinterSettings();
-                        //if (DialogResult.OK == pd.ShowDialog(this))
-                        //{
-                        //    // Print the file to the printer.
-                        //    // RawPrinterHelper.SendFileToPrinter(pd.PrinterSettings.PrinterName, ofd.FileName);
-                        //}
-                        //string path = "C:\\Users\\nihad\\OneDrive\\Masaüstü\\nihads.pdf";
-                        //PrintDialog printDlg = new PrintDialog();
-                        //PrintDocument printDoc = new PrintDocument();
-                        //printDoc.DocumentName = path;
-                        ////printDoc.DocumentName = "Print Document";
-                        //printDlg.Document = printDoc;
-                        //printDlg.AllowSelection = true;
-                        //printDlg.AllowSomePages = true;
-                        ////Call ShowDialog  
-                        //if (printDlg.ShowDialog() == DialogResult.OK) printDoc.Print();
                         break;
+                        case "4":
+              
+                        if (Isok)
+                        {
+                            thread.Suspend();
+                            Isok = false;
+              //              MessageBox.Show("a");
+                        }
+                        break;
+                    case "5":
+                        if (!Isok)
+                        {
+                            Isok = true;
+                            thread.Resume();
+                        }
+                        break;
+
                     default:
                         break;
                 }
